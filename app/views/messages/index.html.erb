@@ -1,0 +1,30 @@
+<h1>All Messages</h1>
+
+<%= link_to "Add New Message", new_message_path, class: "btn btn-success mb-3" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Chat ID</th>
+      <th>User ID</th>
+      <th>Body</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= message.id %></td>
+        <td><%= message.chat_id %></td>
+        <td><%= message.user_id %></td>
+        <td><%= truncate(message.body, length: 50) %></td>
+        <td><%= message.created_at %></td>
+        <td><%= message.updated_at %></td>
+        <td><%= link_to "Show", message_path(message) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

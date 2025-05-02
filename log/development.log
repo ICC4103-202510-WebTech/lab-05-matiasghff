@@ -1,0 +1,1256 @@
+  [1m[35m (171.3ms)[0m  [1m[35mCREATE DATABASE "whats_new_development" ENCODING = 'unicode'[0m
+  [1m[35m (76.4ms)[0m  [1m[35mCREATE DATABASE "whats_new_test" ENCODING = 'unicode'[0m
+Started GET "/" for 127.0.0.1 at 2025-05-01 15:25:41 -0400
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 3.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1956318904036092435)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (4.7ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (3.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-05-01 19:58:25.152565', '2025-05-01 19:58:25.152567') RETURNING "key"[0m
+Migrating to CreateUsers (20250501195131)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "first_name" character varying NOT NULL, "last_name" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250501195131') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateChats (20250501195305)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "chats" ("id" bigserial primary key, "sender_id" integer NOT NULL, "receiver_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_chats_on_sender_id_and_receiver_id" ON "chats" ("sender_id", "receiver_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250501195305') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMessages (20250501195315)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "messages" ("id" bigserial primary key, "chat_id" integer NOT NULL, "user_id" integer NOT NULL, "body" text NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_messages_on_chat_id" ON "messages" ("chat_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_messages_on_user_id" ON "messages" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250501195315') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_advisory_unlock(1956318904036092435)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (4.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First1"], ["last_name", "Last1"], ["created_at", "2025-05-01 20:02:25.840372"], ["updated_at", "2025-05-01 20:02:25.840372"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First2"], ["last_name", "Last2"], ["created_at", "2025-05-01 20:02:25.859654"], ["updated_at", "2025-05-01 20:02:25.859654"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First3"], ["last_name", "Last3"], ["created_at", "2025-05-01 20:02:25.861935"], ["updated_at", "2025-05-01 20:02:25.861935"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First4"], ["last_name", "Last4"], ["created_at", "2025-05-01 20:02:25.864097"], ["updated_at", "2025-05-01 20:02:25.864097"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First5"], ["last_name", "Last5"], ["created_at", "2025-05-01 20:02:25.866234"], ["updated_at", "2025-05-01 20:02:25.866234"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First6"], ["last_name", "Last6"], ["created_at", "2025-05-01 20:02:25.868403"], ["updated_at", "2025-05-01 20:02:25.868403"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First7"], ["last_name", "Last7"], ["created_at", "2025-05-01 20:02:25.870370"], ["updated_at", "2025-05-01 20:02:25.870370"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First8"], ["last_name", "Last8"], ["created_at", "2025-05-01 20:02:25.872427"], ["updated_at", "2025-05-01 20:02:25.872427"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First9"], ["last_name", "Last9"], ["created_at", "2025-05-01 20:02:25.874417"], ["updated_at", "2025-05-01 20:02:25.874417"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "First10"], ["last_name", "Last10"], ["created_at", "2025-05-01 20:02:25.876256"], ["updated_at", "2025-05-01 20:02:25.876256"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (2.5ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 1], ["receiver_id", 2], ["created_at", "2025-05-01 20:02:25.884829"], ["updated_at", "2025-05-01 20:02:25.884829"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.8ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 2], ["receiver_id", 3], ["created_at", "2025-05-01 20:02:25.888584"], ["updated_at", "2025-05-01 20:02:25.888584"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.8ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 3], ["receiver_id", 4], ["created_at", "2025-05-01 20:02:25.890469"], ["updated_at", "2025-05-01 20:02:25.890469"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.8ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 4], ["receiver_id", 5], ["created_at", "2025-05-01 20:02:25.892431"], ["updated_at", "2025-05-01 20:02:25.892431"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.8ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 5], ["receiver_id", 6], ["created_at", "2025-05-01 20:02:25.894355"], ["updated_at", "2025-05-01 20:02:25.894355"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.8ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 6], ["receiver_id", 7], ["created_at", "2025-05-01 20:02:25.896233"], ["updated_at", "2025-05-01 20:02:25.896233"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.7ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 7], ["receiver_id", 8], ["created_at", "2025-05-01 20:02:25.898125"], ["updated_at", "2025-05-01 20:02:25.898125"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.7ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 8], ["receiver_id", 9], ["created_at", "2025-05-01 20:02:25.899968"], ["updated_at", "2025-05-01 20:02:25.899968"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.7ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 9], ["receiver_id", 10], ["created_at", "2025-05-01 20:02:25.901813"], ["updated_at", "2025-05-01 20:02:25.901813"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mChat Create (0.7ms)[0m  [1m[32mINSERT INTO "chats" ("sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["sender_id", 10], ["receiver_id", 1], ["created_at", "2025-05-01 20:02:25.904658"], ["updated_at", "2025-05-01 20:02:25.904658"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (2.5ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 1], ["user_id", 1], ["body", "Test message #1 from First1"], ["created_at", "2025-05-01 20:02:25.913556"], ["updated_at", "2025-05-01 20:02:25.913556"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (1.1ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 2], ["user_id", 3], ["body", "Test message #2 from First3"], ["created_at", "2025-05-01 20:02:25.917207"], ["updated_at", "2025-05-01 20:02:25.917207"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.8ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 3], ["user_id", 3], ["body", "Test message #3 from First3"], ["created_at", "2025-05-01 20:02:25.919436"], ["updated_at", "2025-05-01 20:02:25.919436"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.7ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 4], ["user_id", 5], ["body", "Test message #4 from First5"], ["created_at", "2025-05-01 20:02:25.921446"], ["updated_at", "2025-05-01 20:02:25.921446"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.6ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 5], ["user_id", 5], ["body", "Test message #5 from First5"], ["created_at", "2025-05-01 20:02:25.923123"], ["updated_at", "2025-05-01 20:02:25.923123"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.6ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 6], ["user_id", 7], ["body", "Test message #6 from First7"], ["created_at", "2025-05-01 20:02:25.924897"], ["updated_at", "2025-05-01 20:02:25.924897"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.8ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 7], ["user_id", 7], ["body", "Test message #7 from First7"], ["created_at", "2025-05-01 20:02:25.926479"], ["updated_at", "2025-05-01 20:02:25.926479"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.6ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 8], ["user_id", 9], ["body", "Test message #8 from First9"], ["created_at", "2025-05-01 20:02:25.928230"], ["updated_at", "2025-05-01 20:02:25.928230"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.6ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 9], ["user_id", 9], ["body", "Test message #9 from First9"], ["created_at", "2025-05-01 20:02:25.929921"], ["updated_at", "2025-05-01 20:02:25.929921"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mMessage Create (0.6ms)[0m  [1m[32mINSERT INTO "messages" ("chat_id", "user_id", "body", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["chat_id", 10], ["user_id", 1], ["body", "Test message #10 from First1"], ["created_at", "2025-05-01 20:02:25.931622"], ["updated_at", "2025-05-01 20:02:25.931622"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Count (2.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[36mChat Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "chats"[0m
+  [1m[36mMessage Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "messages"[0m
+Started GET "/" for 127.0.0.1 at 2025-05-01 16:11:33 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (70.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 87.2ms | GC: 1.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 308.7ms | GC: 38.5ms)
+Completed 200 OK in 340ms (Views: 188.9ms | ActiveRecord: 122.6ms (1 query, 0 cached) | GC: 39.7ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:11:33 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2025-05-01 16:11:43 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | GC: 0.2ms)
+Completed 200 OK in 29ms (Views: 18.1ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:11:43 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-01 16:12:21 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (1.1ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 12.3ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.5ms | GC: 0.9ms)
+Completed 200 OK in 21ms (Views: 13.4ms | ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:12:21 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats/1" for 127.0.0.1 at 2025-05-01 16:12:23 -0400
+Processing by ChatsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mChat Load (0.5ms)[0m  [1m[34mSELECT "chats".* FROM "chats" WHERE "chats"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/chats_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering chats/show.html.erb within layouts/application
+  Rendered chats/show.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 6.7ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:12:23 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:12:30 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  Rendered messages/index.html.erb within layouts/application (Duration: 5.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.8ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `id' for nil:NilClass):
+
+Causes:
+NoMethodError (undefined method `id' for nil:NilClass)
+    1: <h1>Message #<%= @message.id %></h1>
+    2: 
+    3: <ul>
+    4:   <li><strong>Chat ID:</strong>      <%= @message.chat_id %></li>
+  
+app/views/messages/index.html.erb:1
+Started GET "/favicon.ico" for 127.0.0.1 at 2025-05-01 16:12:30 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:12:55 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  Rendered messages/index.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `id' for nil:NilClass):
+
+Causes:
+NoMethodError (undefined method `id' for nil:NilClass)
+    1: <h1>Message #<%= @message.id %></h1>
+    2: 
+    3: <ul>
+    4:   <li><strong>Chat ID:</strong>      <%= @message.chat_id %></li>
+  
+app/views/messages/index.html.erb:1
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:14:38 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (1.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 8.1ms | GC: 0.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.2ms | GC: 0.2ms)
+Completed 200 OK in 12ms (Views: 5.5ms | ActiveRecord: 5.4ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:14:38 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.1ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/messages/1" for 127.0.0.1 at 2025-05-01 16:14:39 -0400
+Processing by MessagesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT "messages".* FROM "messages" WHERE "messages"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/messages_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering messages/show.html.erb within layouts/application
+  Rendered messages/show.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.9ms | GC: 0.6ms)
+Completed 200 OK in 11ms (Views: 7.4ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:14:39 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages/1" for 127.0.0.1 at 2025-05-01 16:14:42 -0400
+Processing by MessagesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT "messages".* FROM "messages" WHERE "messages"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/messages_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering messages/show.html.erb within layouts/application
+  Rendered messages/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 6.9ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:14:42 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:21:59 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (14.7ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 17.4ms | GC: 0.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.3ms | GC: 0.5ms)
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 22.0ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+  
+ActionView::Template::Error (Missing partial messages/_header, application/_header with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/matiasghf/Desktop/WEB/lab/Whats_New/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.13/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actiontext-7.2.2.1/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actionmailbox-7.2.2.1/app/views"
+):
+
+Causes:
+ActionView::MissingTemplate (Missing partial messages/_header, application/_header with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/matiasghf/Desktop/WEB/lab/Whats_New/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.13/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actiontext-7.2.2.1/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actionmailbox-7.2.2.1/app/views"
+)
+    18:   </head>
+    19: 
+    20:   <body> 
+    21:     <%= render 'header' %>
+    22:     <%= yield %>
+    23:   </body>
+    24: </html>
+  
+app/views/layouts/application.html.erb:21
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:22:49 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (1.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 12.9ms | GC: 1.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.9ms | GC: 1.7ms)
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 9.2ms (1 query, 0 cached) | GC: 1.7ms)
+
+
+  
+ActionView::Template::Error (Missing partial ../_header with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/matiasghf/Desktop/WEB/lab/Whats_New/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.13/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actiontext-7.2.2.1/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actionmailbox-7.2.2.1/app/views"
+):
+
+Causes:
+ActionView::MissingTemplate (Missing partial ../_header with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/matiasghf/Desktop/WEB/lab/Whats_New/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.13/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actiontext-7.2.2.1/app/views"
+  * "/Users/matiasghf/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/actionmailbox-7.2.2.1/app/views"
+)
+    18:   </head>
+    19: 
+    20:   <body> 
+    21:     <%= render '../header' %>
+    22:     <%= yield %>
+    23:   </body>
+    24: </html>
+  
+app/views/layouts/application.html.erb:21
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:24:17 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.5ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 5.8ms | GC: 0.0ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 5.0ms | ActiveRecord: 3.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:24:17 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:26:22 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.7ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 9.0ms | GC: 0.1ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.4ms | GC: 0.1ms)
+Completed 200 OK in 14ms (Views: 5.9ms | ActiveRecord: 6.2ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:26:22 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:26:43 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.4ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 6.0ms | GC: 0.1ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | GC: 0.2ms)
+Completed 200 OK in 10ms (Views: 4.8ms | ActiveRecord: 3.7ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:26:43 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:32:09 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.8ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 7.5ms | GC: 0.1ms)
+  Rendered messages/_header.html.erb (Duration: 0.2ms | GC: 0.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.3ms | GC: 0.2ms)
+Completed 200 OK in 13ms (Views: 6.4ms | ActiveRecord: 4.7ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:32:09 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:32:11 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (1.2ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 5.9ms | GC: 0.0ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.2ms | GC: 0.4ms)
+Completed 200 OK in 13ms (Views: 10.7ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 1.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:32:11 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:32:20 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 7.0ms | GC: 0.2ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | GC: 0.2ms)
+Completed 200 OK in 11ms (Views: 4.9ms | ActiveRecord: 4.6ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:32:20 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:32:30 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 6.9ms | GC: 0.4ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.7ms | GC: 0.5ms)
+Completed 200 OK in 10ms (Views: 4.8ms | ActiveRecord: 4.4ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:32:30 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:33:02 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (0.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 8.0ms | GC: 0.1ms)
+  Rendered messages/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.1ms | GC: 0.1ms)
+Completed 200 OK in 12ms (Views: 5.2ms | ActiveRecord: 5.5ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:33:02 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:33:25 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 7.5ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | GC: 0.2ms)
+Completed 200 OK in 11ms (Views: 4.4ms | ActiveRecord: 5.3ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:33:25 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:33:41 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 5.9ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | GC: 0.1ms)
+Completed 200 OK in 9ms (Views: 4.3ms | ActiveRecord: 3.8ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:33:41 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:33:54 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 6.4ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | GC: 0.1ms)
+Completed 200 OK in 10ms (Views: 4.8ms | ActiveRecord: 4.2ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:33:54 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:34:02 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 7.4ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.0ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 4.3ms | ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:34:02 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:35:05 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 8.2ms | GC: 0.2ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.4ms | GC: 0.2ms)
+Completed 200 OK in 13ms (Views: 5.8ms | ActiveRecord: 5.4ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:35:05 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:35:14 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 5.7ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.5ms | GC: 0.2ms)
+Completed 200 OK in 9ms (Views: 4.6ms | ActiveRecord: 3.5ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:35:15 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:35:26 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 6.8ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | GC: 0.2ms)
+Completed 200 OK in 10ms (Views: 4.4ms | ActiveRecord: 4.6ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:35:26 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:35:53 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 7.5ms | GC: 0.1ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | GC: 0.1ms)
+Completed 200 OK in 11ms (Views: 4.9ms | ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:35:53 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:41:01 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 13.2ms | GC: 3.5ms)
+  Rendered users/_header.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | GC: 4.0ms)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 6.4ms (1 query, 0 cached) | GC: 4.0ms)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">What's New!</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+            <%= link_to "Users", users_path, class="nav-link" %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Chats</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Messages</a>
+        </li>
+        
+    </div>
+  </div>
+</nav>
+):
+
+Causes:
+ActiveSupport::SyntaxErrorProxy (/Users/matiasghf/Desktop/WEB/lab/Whats_New/app/views/users/_header.html.erb:11: syntax error, unexpected '='
+..._to "Users", users_path, class="nav-link" ); @output_buffer....
+...                              ^
+)
+1:    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+2:      <div class="container-fluid">
+3:        <a class="navbar-brand" href="#">What's New!</a>
+4:        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+5:          <span class="navbar-toggler-icon"></span>
+6:        </button>
+7:        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+8:          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+9:    
+10:            <li class="nav-item">
+11:                <%= link_to "Users", users_path, class="nav-link" %>
+12:            </li>
+13:            <li class="nav-item">
+14:              <a class="nav-link" href="#">Chats</a>
+15:            </li>
+16:            <li class="nav-item">
+17:              <a class="nav-link" href="#">Messages</a>
+18:            </li>
+19:            
+20:        </div>
+21:      </div>
+22:    </nav>
+  
+app/views/users/_header.html.erb:11: syntax error, unexpected '='
+app/views/layouts/application.html.erb:21
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:41:44 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 6.0ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | GC: 1.5ms)
+Completed 200 OK in 12ms (Views: 6.3ms | ActiveRecord: 3.9ms (1 query, 0 cached) | GC: 1.5ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:41:44 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-05-01 16:42:32 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 5.6ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.5ms | GC: 0.1ms)
+Completed 200 OK in 9ms (Views: 4.6ms | ActiveRecord: 3.5ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:42:33 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:42:34 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 4.0ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.0ms | GC: 0.1ms)
+Completed 200 OK in 12ms (Views: 10.8ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:42:34 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-01 16:42:35 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (1.7ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 12.2ms | GC: 0.3ms)
+  Rendered chats/_header.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.3ms | GC: 0.5ms)
+Completed 200 OK in 24ms (Views: 16.3ms | ActiveRecord: 4.4ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:42:35 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-01 16:43:03 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (0.5ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 7.2ms | GC: 1.6ms)
+  Rendered chats/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | GC: 1.8ms)
+Completed 200 OK in 11ms (Views: 6.6ms | ActiveRecord: 3.5ms (1 query, 0 cached) | GC: 1.8ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:43:03 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-01 16:43:04 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 11.0ms | GC: 0.6ms)
+  Rendered users/_header.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.7ms | GC: 0.8ms)
+Completed 200 OK in 19ms (Views: 12.1ms | ActiveRecord: 4.6ms (1 query, 0 cached) | GC: 0.8ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:43:04 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-01 16:43:05 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (1.1ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 5.4ms | GC: 0.4ms)
+  Rendered chats/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.5ms | GC: 0.6ms)
+Completed 200 OK in 14ms (Views: 11.9ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:43:05 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-01 16:43:05 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (1.0ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 13.9ms | GC: 0.4ms)
+  Rendered messages/_header.html.erb (Duration: 1.1ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.2ms | GC: 0.7ms)
+Completed 200 OK in 24ms (Views: 17.2ms | ActiveRecord: 4.1ms (1 query, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-01 16:43:05 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:21:57 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (9.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 22.2ms | GC: 0.8ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 42.6ms | GC: 1.0ms)
+Completed 200 OK in 60ms (Views: 23.0ms | ActiveRecord: 22.2ms (1 query, 0 cached) | GC: 1.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:21:57 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:21:59 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 4.6ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.2ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 9.8ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:21:59 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-02 15:22:00 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (1.7ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 12.9ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.3ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 16.5ms | ActiveRecord: 4.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:22:00 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-02 15:22:01 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (2.1ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:16
+  Rendered messages/index.html.erb within layouts/application (Duration: 13.6ms | GC: 0.0ms)
+  Rendered messages/_header.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.5ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 19.0ms | ActiveRecord: 4.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:22:01 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-02 15:22:02 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (0.9ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:15
+  Rendered chats/index.html.erb within layouts/application (Duration: 3.9ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.4ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 8.1ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:22:02 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:22:03 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:16
+  Rendered users/index.html.erb within layouts/application (Duration: 3.4ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.1ms | GC: 12.1ms)
+Completed 200 OK in 23ms (Views: 21.8ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 12.1ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:22:03 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:35:29 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (10.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:18
+  Rendered users/index.html.erb within layouts/application (Duration: 20.5ms | GC: 0.6ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.1ms | GC: 0.6ms)
+Completed 200 OK in 61ms (Views: 20.2ms | ActiveRecord: 22.6ms (1 query, 0 cached) | GC: 1.7ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:29 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.2ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2025-05-02 15:35:31 -0400
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/new.html.erb within layouts/application (Duration: 11.0ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.4ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 15.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:31 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2025-05-02 15:35:43 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"first_name"=>"Matias", "last_name"=>"Garcia", "email"=>"[FILTERED]"}, "commit"=>"Create User"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mUser Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "first_name", "last_name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "[FILTERED]"], ["first_name", "Matias"], ["last_name", "Garcia"], ["created_at", "2025-05-02 19:35:43.985912"], ["updated_at", "2025-05-02 19:35:43.985912"]]
+  ↳ app/controllers/users_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:16:in `create'
+Redirected to http://127.0.0.1:3000/users/11
+Completed 302 Found in 10ms (ActiveRecord: 3.8ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/11" for 127.0.0.1 at 2025-05-02 15:35:43 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"11"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.7ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 1.8ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:44 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:35:46 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:18
+  Rendered users/index.html.erb within layouts/application (Duration: 5.0ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 11.4ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:46 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-02 15:35:52 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (1.2ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:18
+  Rendered chats/index.html.erb within layouts/application (Duration: 11.3ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.1ms | GC: 8.0ms)
+Completed 200 OK in 32ms (Views: 20.5ms | ActiveRecord: 4.7ms (1 query, 0 cached) | GC: 8.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:52 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/messages" for 127.0.0.1 at 2025-05-02 15:35:53 -0400
+Processing by MessagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering messages/index.html.erb within layouts/application
+  [1m[36mMessage Load (1.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  ↳ app/views/messages/index.html.erb:18
+  Rendered messages/index.html.erb within layouts/application (Duration: 14.9ms | GC: 0.9ms)
+  Rendered messages/_header.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 22.2ms | GC: 1.5ms)
+Completed 200 OK in 31ms (Views: 20.1ms | ActiveRecord: 4.3ms (1 query, 0 cached) | GC: 2.3ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:35:54 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2025-05-02 15:36:18 -0400
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:18
+  Rendered users/index.html.erb within layouts/application (Duration: 5.8ms | GC: 0.0ms)
+  Rendered users/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | GC: 0.4ms)
+Completed 200 OK in 13ms (Views: 11.3ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:36:18 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-02 15:36:19 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (0.9ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:18
+  Rendered chats/index.html.erb within layouts/application (Duration: 4.7ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.0ms | GC: 0.4ms)
+Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:36:19 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats/new" for 127.0.0.1 at 2025-05-02 15:36:20 -0400
+Processing by ChatsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/new.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/chats/new.html.erb:18
+  Rendered chats/new.html.erb within layouts/application (Duration: 12.5ms | GC: 0.4ms)
+  Rendered chats/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.3ms | GC: 0.4ms)
+Completed 200 OK in 19ms (Views: 16.9ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:36:20 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/chats" for 127.0.0.1 at 2025-05-02 15:36:29 -0400
+Processing by ChatsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "chat"=>{"sender_id"=>"11", "receiver_id"=>"11"}, "commit"=>"Create Chat"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/chats_controller.rb:18:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/chats_controller.rb:18:in `create'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/chats_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/chats_controller.rb:18:in `create'
+  Rendering layout layouts/application.html.erb
+  Rendering chats/new.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/chats/new.html.erb:18
+  Rendered chats/new.html.erb within layouts/application (Duration: 2.5ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.3ms | GC: 0.3ms)
+Completed 200 OK in 43ms (Views: 5.1ms | ActiveRecord: 1.1ms (3 queries, 1 cached) | GC: 1.5ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:36:29 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 0ms (Views: 0.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/chats" for 127.0.0.1 at 2025-05-02 15:36:34 -0400
+Processing by ChatsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering chats/index.html.erb within layouts/application
+  [1m[36mChat Load (0.8ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  ↳ app/views/chats/index.html.erb:18
+  Rendered chats/index.html.erb within layouts/application (Duration: 4.6ms | GC: 0.0ms)
+  Rendered chats/_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.8ms | GC: 0.6ms)
+Completed 200 OK in 13ms (Views: 11.5ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2025-05-02 15:36:34 -0400
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 1.7ms | GC: 1.6ms)
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.6ms)
+
+
