@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "messages/index"
   get "messages/show"
   get "chats/index"
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "users#index"
-  resources :users,    only: [ :index, :show, :new, :create ]
-  resources :chats,    only: [ :index, :show, :new, :create ]
-  resources :messages, only: [ :index, :show, :new, :create ]
+  resources :users,    only: [ :index, :show, :new, :create, :edit, :update ]
+  resources :chats,    only: [ :index, :show, :new, :create, :edit, :update ]
+  resources :messages, only: [ :index, :show, :new, :create, :edit, :update ]
 end

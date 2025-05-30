@@ -1,0 +1,31 @@
+<%= form_with model: message, local: true do |f| %>
+  <% if message.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(message.errors.count, "error") %> prevented saving:</h4>
+      <ul>
+        <% message.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :chat_id, "Chat" %>
+    <%= f.select :chat_id,
+          options_from_collection_for_select(@chats, :id, ->(c) { "#{c.sender.email} → #{c.receiver.email}" }, message.chat_id),
+          { prompt: "Choose a chat" }, class: "form-select" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :user_id, "Author" %>
+    <%= f.select :user_id,
+          options_from_collection_for_select(@users, :id, :email, message.user_id),
+          { prompt: "Choose an author" }, class: "form-select" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "form-control", rows: 4 %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

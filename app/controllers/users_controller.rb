@@ -1,22 +1,35 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    @users = User.all
+    # @users loaded & authorized
   end
 
   def show
-    @user = User.find(params[:id])
+    # @user loaded & authorized
   end
 
   def new
-    @user = User.new
+    # @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
     if @user.save
       redirect_to @user, notice: "User created successfully."
     else
       render :new
+    end
+  end
+
+  def edit
+    # @user loaded & authorized
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user, notice: "User updated successfully."
+    else
+      render :edit
     end
   end
 

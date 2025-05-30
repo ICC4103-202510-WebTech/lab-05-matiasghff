@@ -1,29 +1,44 @@
 <h1>All Messages</h1>
 
-<%= link_to "Add New Message", new_message_path, class: "btn btn-success mb-3" %>
+<% if can? :create, Message %>
+  <%= link_to "Add New Message", new_message_path, class: "btn btn-success mb-3" %>
+<% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Chat ID</th>
-      <th>User ID</th>
+      <th>Chat</th>
+      <th>Author</th>
       <th>Body</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-      <th></th>
+      <th></th> <!-- Show -->
+      <th></th> <!-- Edit -->
+      <th></th> <!-- Delete -->
     </tr>
   </thead>
   <tbody>
-    <% @messages.each do |message| %>
+    <% @messages.each do |m| %>
       <tr>
-        <td><%= message.id %></td>
-        <td><%= message.chat_id %></td>
-        <td><%= message.user_id %></td>
-        <td><%= truncate(message.body, length: 50) %></td>
-        <td><%= message.created_at %></td>
-        <td><%= message.updated_at %></td>
-        <td><%= link_to "Show", message_path(message) %></td>
+        <td><%= m.id %></td>
+        <td><%= m.chat.id %></td>
+        <td><%= m.user.email %></td>
+        <td><%= truncate(m.body, length: 30) %></td>
+        <td>
+          <%= link_to "Show", message_path(m), class: "btn btn-outline-primary btn-sm" %>
+        </td>
+        <td>
+          <% if can? :update, m %>
+            <%= link_to "Edit", edit_message_path(m), class: "btn btn-outline-secondary btn-sm" %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :destroy, m %>
+            <%= link_to "Delete", message_path(m),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

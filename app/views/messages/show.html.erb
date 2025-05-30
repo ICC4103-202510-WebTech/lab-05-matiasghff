@@ -1,13 +1,24 @@
 <h1>Message #<%= @message.id %></h1>
 
 <ul>
-  <li><strong>Chat ID:</strong>      <%= @message.chat_id %></li>
-  <li><strong>User ID:</strong>      <%= @message.user_id %></li>
-  <li><strong>Body:</strong>         <%= @message.body %></li>
-  <li><strong>Created At:</strong>   <%= @message.created_at %></li>
-  <li><strong>Updated At:</strong>   <%= @message.updated_at %></li>
+  <li><strong>Chat:</strong>   <%= link_to "Chat ##{@message.chat.id}", chat_path(@message.chat) %></li>
+  <li><strong>Author:</strong> <%= link_to @message.user.email, user_path(@message.user) %></li>
+  <li><strong>Body:</strong>   <%= @message.body %></li>
+  <li><strong>Sent At:</strong> <%= @message.created_at %></li>
 </ul>
 
-<%= link_to "Add New Message", new_message_path, class: "btn btn-success" %>
-
-<%= link_to "Back to Messages", messages_path %>
+<div class="mb-3">
+  <% if can? :update, @message %>
+    <%= link_to "Edit Message", edit_message_path(@message), class: "btn btn-primary" %>
+  <% end %>
+  <% if can? :destroy, @message %>
+    <%= link_to "Delete Message", message_path(@message),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-danger" %>
+  <% end %>
+  <% if can? :create, Message %>
+    <%= link_to "Add New Message", new_message_path, class: "btn btn-success" %>
+  <% end %>
+  <%= link_to "Back to Messages", messages_path, class: "btn btn-secondary" %>
+</div>

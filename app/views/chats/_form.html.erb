@@ -1,0 +1,25 @@
+<%= form_with model: chat, local: true do |f| %>
+  <% if chat.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(chat.errors.count, "error") %> prevented saving:</h4>
+      <ul>
+        <% chat.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :sender_id, "Sender" %>
+    <%= f.select :sender_id, options_from_collection_for_select(@users, :id, :email, chat.sender_id),
+          { prompt: "Choose a sender" }, class: "form-select" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :receiver_id, "Receiver" %>
+    <%= f.select :receiver_id, options_from_collection_for_select(@users, :id, :email, chat.receiver_id),
+          { prompt: "Choose a receiver" }, class: "form-select" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

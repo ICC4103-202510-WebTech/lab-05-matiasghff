@@ -1,13 +1,65 @@
 <h1>Chat #<%= @chat.id %></h1>
 
 <ul>
-  <li><strong>Sender ID:</strong>   <%= @chat.sender_id %></li>
-  <li><strong>Receiver ID:</strong> <%= @chat.receiver_id %></li>
-  <li><strong>Created At:</strong>  <%= @chat.created_at %></li>
-  <li><strong>Updated At:</strong>  <%= @chat.updated_at %></li>
+  <li><strong>Sender:</strong>   <%= link_to @chat.sender.email, user_path(@chat.sender) %></li>
+  <li><strong>Receiver:</strong> <%= link_to @chat.receiver.email, user_path(@chat.receiver) %></li>
 </ul>
 
-<%= link_to "Add New Chat", new_chat_path, class: "btn btn-success" %>
+<div class="mb-3">
+  <% if can? :update, @chat %>
+    <%= link_to "Edit Chat", edit_chat_path(@chat), class: "btn btn-primary" %>
+  <% end %>
+  <% if can? :destroy, @chat %>
+    <%= link_to "Delete Chat", chat_path(@chat),
+                method: :delete,
+                data: { confirm: "Really delete this chat?" },
+                class: "btn btn-danger" %>
+  <% end %>
+  <% if can? :create, Chat %>
+    <%= link_to "Add New Chat", new_chat_path, class: "btn btn-success" %>
+  <% end %>
+  <%= link_to "Back to Chats", chats_path, class: "btn btn-secondary" %>
+</div>
 
+<hr>
 
-<%= link_to "Back to Chats", chats_path %>
+<h2>Messages in this Chat</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Author</th>
+      <th>Body</th>
+      <th>Sent At</th>
+      <th></th>  <!-- Show -->
+      <th></th>  <!-- Edit -->
+      <th></th>  <!-- Delete -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @chat.messages.each do |msg| %>
+      <tr>
+        <td><%= msg.id %></td>
+        <td><%= msg.user.email %></td>
+        <td><%= truncate(msg.body, length: 50) %></td>
+        <td><%= msg.created_at %></td>
+        <td>
+          <%= link_to "Show", message_path(msg), class: "btn btn-outline-primary btn-sm" %>
+        </td>
+        <td>
+          <% if can? :update, msg %>
+            <%= link_to "Edit", edit_message_path(msg), class: "btn btn-outline-secondary btn-sm" %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :destroy, msg %>
+            <%= link_to "Delete", message_path(msg),
+                        method: :delete,
+                        data: { confirm: "Delete this message?" },
+                        class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

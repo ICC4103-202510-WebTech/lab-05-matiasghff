@@ -1,28 +1,42 @@
 <h1>All Chats</h1>
 
-<%= link_to "Add New Chat", new_chat_path, class: "btn btn-success mb-3" %>
+<% if can? :create, Chat %>
+  <%= link_to "Add New Chat", new_chat_path, class: "btn btn-success mb-3" %>
+<% end %>
 
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Sender ID</th>
-      <th>Receiver ID</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-      <th></th>
+      <th>Sender</th>
+      <th>Receiver</th>
+      <th></th> <!-- Show -->
+      <th></th> <!-- Edit -->
+      <th></th> <!-- Delete -->
     </tr>
   </thead>
   <tbody>
-    <% @chats.each do |chat| %>
+    <% @chats.each do |c| %>
       <tr>
-        <td><%= chat.id %></td>
-        <td><%= chat.sender_id %></td>
-        <td><%= chat.receiver_id %></td>
-        <td><%= chat.created_at %></td>
-        <td><%= chat.updated_at %></td>
-        <td><%= link_to "Show", chat_path(chat) %></td>
+        <td><%= c.id %></td>
+        <td><%= c.sender.email %></td>
+        <td><%= c.receiver.email %></td>
+        <td>
+          <%= link_to "Show", chat_path(c), class: "btn btn-outline-primary btn-sm" %>
+        </td>
+        <td>
+          <% if can? :update, c %>
+            <%= link_to "Edit", edit_chat_path(c), class: "btn btn-outline-secondary btn-sm" %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :destroy, c %>
+            <%= link_to "Delete", chat_path(c),
+                        method: :delete,
+                        data: { confirm: "Really delete this chat?" },
+                        class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
